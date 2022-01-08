@@ -18,3 +18,5 @@ const postReducer = (state = initialState, action) => {
       };
   }
 };
+
+export default postReducer;
