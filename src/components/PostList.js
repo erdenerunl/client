@@ -1,15 +1,24 @@
 import Post from "./Post"
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const PostList = () => {
-    
-    const posts = useSelector(state => state.posts.posts);
+    const apiEndPoint = "http://localhost:5000/posts";
+    const [state, setState] = useState([]);
+
+    useEffect(() => {
+        axios.get(apiEndPoint).then(res => {
+            setState({posts: res.data.data.posts});
+        })
+        
+    },[])
+    console.log(state)
     // const posts = ['bir', 'iki', 'üç', 'dört'];
 
     return (
         <div className="container mx-auto bg-red-200 " >
             <div className="flex flex-wrap" >
-                {posts.map((post) => 
+                {state.posts.length > 0 && state.posts.map((post) => 
                     <Post {...post} key={post?._id} />
                 )}
             </div>
